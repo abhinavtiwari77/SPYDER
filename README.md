@@ -5,6 +5,12 @@ This repository contains:
 - A React + Vite frontend in `Frontend/`
 - A Node.js + Express backend in `Backend/`
 
+## Live Deployment
+
+- **Frontend Application**: [https://spyder-frontend.onrender.com/](https://spyder-frontend.onrender.com/)
+- **Backend API**: [https://spyder-backend.onrender.com](https://spyder-backend.onrender.com)
+
+
 ## Features
 
 - AI chat assistant for security-related guidance
