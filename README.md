@@ -124,6 +124,16 @@ Default local URLs:
 
 Use `Backend/.env.example` as the source of truth.
 
+## Deployment to Render
+
+This project is configured for easy deployment on [Render](https://render.com) using the included `render.yaml` Blueprint.
+
+1. Push your code to a Git repository.
+2. In Render, create a new **Blueprint** and connect your repository.
+3. Render will automatically detect the frontend and backend services.
+4. Fill in the requested secret environment variables (e.g., MongoDB URI, API keys).
+5. Ensure you update `BACKEND_BASE_URL` and `VITE_API_BASE_URL` once the URLs are generated.
+
 ## Available Scripts
 
 Backend (`Backend/package.json`):
