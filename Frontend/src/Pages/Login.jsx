@@ -3,8 +3,9 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { ArrowLeft, Eye, EyeOff, Lock, User } from "lucide-react"
 import { UserContext } from "../Contexts/UserContext"
+import { withApiBase } from "../config/api"
 
-const serverUrl = "http://localhost:3000"
+const serverUrl = withApiBase()
 
 const Login = () => {
   const navigate = useNavigate()

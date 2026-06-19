@@ -3,8 +3,9 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { ArrowLeft, AtSign, Eye, EyeOff, Lock, UserRound } from "lucide-react"
 import { UserContext } from "../Contexts/UserContext"
+import { withApiBase } from "../config/api"
 
-const serverUrl = "http://localhost:3000"
+const serverUrl = withApiBase()
 
 const NewAccount = () => {
   const navigate = useNavigate()

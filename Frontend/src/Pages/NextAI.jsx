@@ -7,9 +7,10 @@ import Markdown from "react-markdown"
 import remarkBreaks from "remark-breaks"
 import axios from "axios"
 import { UserContext } from "../Contexts/UserContext"
+import { withApiBase } from "../config/api"
 
 const api = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: withApiBase(),
   timeout: 30000,
   headers: {
     "Content-Type": "application/json",

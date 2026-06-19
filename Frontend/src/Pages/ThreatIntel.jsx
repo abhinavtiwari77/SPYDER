@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react"
 import { Activity, AlertTriangle, CheckCircle2, Globe, Hash, Network, Share2, Shield, Upload } from "lucide-react"
+import { withApiBase } from "../config/api"
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000"
+const API_BASE = withApiBase()
 
 const defaultShareMessage = "Automated alert from Spyder: suspicious indicator detected. Please investigate."
 

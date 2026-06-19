@@ -1,9 +1,10 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { withApiBase } from "../config/api";
 
 export const UserContext = createContext(null);
 
-const serverUrl = "http://localhost:3000";
+const serverUrl = withApiBase();
 const TOKEN_KEY = "spyder-token";
 
 export const UserContextProvider = ({ children }) => {

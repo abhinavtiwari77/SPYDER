@@ -1,8 +1,9 @@
 import { useContext, useEffect, useMemo, useRef, useState } from "react"
 import { AlertTriangle, Camera, CheckCircle2, Loader2, Play, Shield, Square, Upload, Webcam } from "lucide-react"
 import { UserContext } from "../Contexts/UserContext"
+import { withApiBase } from "../config/api"
 
-const API_BASE = "http://localhost:3000"
+const API_BASE = withApiBase()
 const LIVE_INTERVAL_MS = 1600
 const HISTORY_WINDOW = 5
 

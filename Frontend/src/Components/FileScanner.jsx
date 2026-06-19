@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
+import { withApiBase } from '../config/api';
 
 const FileScanner = () => {
   const [file, setFile] = useState(null);
@@ -34,16 +35,17 @@ const FileScanner = () => {
       formData.append('file', file);
 
       // Send file to backend
-      const response = await axios.post('http://localhost:3000/api/scan', formData, {
+      const response = await axios.post(withApiBase('/scanFile'), formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
 
-      if (response.data.success) {
-        setScanResults(response.data.data);
+      const vt = response?.data?.vt;
+      if (vt?.success) {
+        setScanResults(vt);
       } else {
-        setError(response.data.error || 'Scan failed');
+        setError(response?.data?.error || vt?.error || 'Scan failed');
       }
     } catch (err) {
       setError(err.response?.data?.error || err.message || 'Failed to scan file');
@@ -94,11 +96,11 @@ const FileScanner = () => {
           <button
             onClick={handleScan}
             disabled={!file || scanning}
-            className={\`px-4 py-2 rounded-lg font-medium 
-              \${!file || scanning
+            className={`px-4 py-2 rounded-lg font-medium 
+              ${!file || scanning
                 ? 'bg-gray-300 cursor-not-allowed'
                 : 'bg-blue-500 hover:bg-blue-600'} 
-              text-white transition-colors\`}
+              text-white transition-colors`}
           >
             {scanning ? (
               <span className="flex items-center">
@@ -138,31 +140,31 @@ const FileScanner = () => {
                 <div className="p-4 bg-green-50 dark:bg-green-900 rounded-lg">
                   <p className="text-sm text-green-600 dark:text-green-200">Clean</p>
                   <p className="text-2xl font-bold text-green-700 dark:text-green-100">
-                    {scanResults.summary.harmless}
+                    {scanResults?.summary?.harmless ?? 0}
                   </p>
                 </div>
                 <div className="p-4 bg-red-50 dark:bg-red-900 rounded-lg">
                   <p className="text-sm text-red-600 dark:text-red-200">Malicious</p>
                   <p className="text-2xl font-bold text-red-700 dark:text-red-100">
-                    {scanResults.summary.malicious}
+                    {scanResults?.summary?.malicious ?? 0}
                   </p>
                 </div>
                 <div className="p-4 bg-yellow-50 dark:bg-yellow-900 rounded-lg">
                   <p className="text-sm text-yellow-600 dark:text-yellow-200">Suspicious</p>
                   <p className="text-2xl font-bold text-yellow-700 dark:text-yellow-100">
-                    {scanResults.summary.suspicious}
+                    {scanResults?.summary?.suspicious ?? 0}
                   </p>
                 </div>
                 <div className="p-4 bg-blue-50 dark:bg-blue-900 rounded-lg">
                   <p className="text-sm text-blue-600 dark:text-blue-200">Total Engines</p>
                   <p className="text-2xl font-bold text-blue-700 dark:text-blue-100">
-                    {scanResults.totalEngines}
+                    {scanResults?.totalEngines ?? 0}
                   </p>
                 </div>
               </div>
 
               {/* Detections List */}
-              {scanResults.detections.length > 0 && (
+              {(scanResults?.detections || []).length > 0 && (
                 <div className="mt-6">
                   <h4 className="text-lg font-semibold mb-3 text-gray-800 dark:text-white">
                     Detected Threats
@@ -181,7 +183,7 @@ const FileScanner = () => {
                           </tr>
                         </thead>
                         <tbody className="bg-white dark:bg-gray-600 divide-y divide-gray-200 dark:divide-gray-500">
-                          {scanResults.detections.map((detection, index) => (
+                          {(scanResults?.detections || []).map((detection, index) => (
                             <tr key={index}>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                                 {detection.engine}

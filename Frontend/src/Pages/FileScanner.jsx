@@ -1,5 +1,6 @@
 import { useRef, useState } from "react"
 import { FileCheck, FileText, Loader2, Shield, Trash2, Upload, XCircle } from "lucide-react"
+import { withApiBase } from "../config/api"
 
 const FileScanner = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -54,7 +55,7 @@ const FileScanner = () => {
       const formData = new FormData()
       formData.append("file", uploadedFile)
 
-      const response = await fetch("http://localhost:3000/scanFile", {
+      const response = await fetch(withApiBase("/scanFile"), {
         method: "POST",
         body: formData,
       })
