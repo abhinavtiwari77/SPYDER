@@ -1,0 +1,46 @@
+services:
+  - type: web
+    name: spyder-backend
+    env: node
+    rootDir: Backend
+    buildCommand: npm install
+    startCommand: npm start
+    plan: starter
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: SESSION_SECRET
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: VT_API_KEY
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: BACKEND_BASE_URL
+        value: https://spyder-backend.onrender.com
+      - key: GOOGLE_CALLBACK_URL
+        value: https://spyder-backend.onrender.com/auth/google/callback
+      - key: CLIENT_ORIGINS
+        value: https://spyder-frontend.onrender.com
+      - key: CLIENT_SUCCESS_URL
+        value: https://spyder-frontend.onrender.com/login/success
+
+  - type: static_site
+    name: spyder-frontend
+    rootDir: Frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    pullRequestPreviewsEnabled: false
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: VITE_API_BASE_URL
+        value: https://spyder-backend.onrender.com
